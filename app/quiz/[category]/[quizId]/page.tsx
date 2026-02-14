@@ -17,7 +17,8 @@ export default function QuizTakingPage() {
   const resolvedParams = params; // Declare resolvedParams variable
 
   const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [answers, setAnswers] = useState<Record<string, number | boolean>>({})
+  const [answers, setAnswers] = useState<Record<string, number | boolean | number[]>>({})
+  const [selectedMultiple, setSelectedMultiple] = useState<number[]>([])
   const [showResults, setShowResults] = useState(false)
   const [showExplanation, setShowExplanation] = useState(false)
 
@@ -43,8 +44,24 @@ export default function QuizTakingPage() {
     setShowExplanation(true)
   }
 
+  const handleMultipleToggle = (index: number) => {
+    setSelectedMultiple(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    )
+  }
+
+  const submitMultipleSelect = () => {
+    if (selectedMultiple.length > 0) {
+      setAnswers(prev => ({ ...prev, [question.id]: [...selectedMultiple].sort() }))
+      setShowExplanation(true)
+    }
+  }
+
   const handleNext = () => {
     setShowExplanation(false)
+    setSelectedMultiple([])
     if (currentQuestion < quiz.questions.length - 1) {
       setCurrentQuestion(prev => prev + 1)
     } else {
@@ -54,6 +71,7 @@ export default function QuizTakingPage() {
 
   const handlePrevious = () => {
     setShowExplanation(false)
+    setSelectedMultiple([])
     if (currentQuestion > 0) {
       setCurrentQuestion(prev => prev - 1)
     }
@@ -63,7 +81,16 @@ export default function QuizTakingPage() {
     let correct = 0
     quiz.questions.forEach(q => {
       const userAnswer = answers[q.id]
-      if (userAnswer === q.correctAnswer) {
+      if (q.type === "multiple-select") {
+        const correctAnswers = q.correctAnswers || []
+        const userAnswers = (userAnswer as number[]) || []
+        if (
+          correctAnswers.length === userAnswers.length &&
+          correctAnswers.every(a => userAnswers.includes(a))
+        ) {
+          correct++
+        }
+      } else if (userAnswer === q.correctAnswer) {
         correct++
       }
     })
@@ -74,7 +101,17 @@ export default function QuizTakingPage() {
     }
   }
 
-  const isCorrect = (q: Question) => answers[q.id] === q.correctAnswer
+  const isCorrect = (q: Question) => {
+    if (q.type === "multiple-select") {
+      const correctAnswers = q.correctAnswers || []
+      const userAnswers = (answers[q.id] as number[]) || []
+      return (
+        correctAnswers.length === userAnswers.length &&
+        correctAnswers.every(a => userAnswers.includes(a))
+      )
+    }
+    return answers[q.id] === q.correctAnswer
+  }
 
   const restartQuiz = () => {
     setCurrentQuestion(0)
@@ -150,7 +187,9 @@ export default function QuizTakingPage() {
                             <span className="font-medium">Correct answer: </span>
                             {q.type === "true-false" 
                               ? (q.correctAnswer ? "True" : "False")
-                              : q.options?.[q.correctAnswer as number]
+                              : q.type === "multiple-select"
+                                ? q.correctAnswers?.map(i => q.options?.[i]).join(", ")
+                                : q.options?.[q.correctAnswer as number]
                             }
                           </p>
                         )}
@@ -271,6 +310,65 @@ export default function QuizTakingPage() {
                       </button>
                     )
                   })}
+                </>
+              ) : question.type === "multiple-select" ? (
+                <>
+                  <p className="text-sm text-gray-500 mb-4">Select all that apply:</p>
+                  <div className="flex flex-wrap gap-3">
+                    {question.options?.map((option, index) => {
+                      const userAnswers = (answers[question.id] as number[]) || []
+                      const isSelected = hasAnswered ? userAnswers.includes(index) : selectedMultiple.includes(index)
+                      const isCorrectAnswer = question.correctAnswers?.includes(index)
+                      const showCorrectness = showExplanation
+
+                      return (
+                        <button
+                          key={option}
+                          onClick={() => !hasAnswered && handleMultipleToggle(index)}
+                          disabled={hasAnswered}
+                          className={`inline-flex items-center gap-2 px-4 py-3 rounded-lg border-2 transition-all duration-200 ${
+                            showCorrectness
+                              ? isCorrectAnswer
+                                ? 'border-green-500 bg-green-50 text-green-700'
+                                : isSelected
+                                  ? 'border-red-500 bg-red-50 text-red-700'
+                                  : 'border-gray-200 text-gray-700'
+                              : isSelected
+                                ? 'border-[#8B9456] bg-[#8B9456]/10'
+                                : 'border-gray-200 hover:border-[#8B9456] hover:bg-gray-50'
+                          }`}
+                        >
+                          <div 
+                            className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
+                              showCorrectness
+                                ? isCorrectAnswer
+                                  ? 'border-green-500 bg-green-500'
+                                  : isSelected
+                                    ? 'border-red-500 bg-red-500'
+                                    : 'border-gray-300'
+                                : isSelected
+                                  ? 'border-[#8B9456] bg-[#8B9456]'
+                                  : 'border-gray-300'
+                            }`}
+                          >
+                            {(isSelected || (showCorrectness && isCorrectAnswer)) && (
+                              <CheckCircle className="h-3 w-3 text-white" />
+                            )}
+                          </div>
+                          <span className="text-sm">{option}</span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                  {!hasAnswered && selectedMultiple.length > 0 && (
+                    <button
+                      onClick={submitMultipleSelect}
+                      className="mt-4 w-full py-3 rounded-lg text-white font-medium transition-colors"
+                      style={{ backgroundColor: category.color }}
+                    >
+                      Submit Answer
+                    </button>
+                  )}
                 </>
               ) : (
                 question.options?.map((option, index) => {

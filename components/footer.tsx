@@ -5,6 +5,7 @@ const footerLinks = [
   { name: "Home", href: "/" },
   { name: "Quiz", href: "/quiz" },
   { name: "Blog", href: "/blog" },
+  { name: "Articles", href: "/articles" },
   { name: "About Us", href: "/about" },
   { name: "Contact Us", href: "/contact" },
   { name: "Privacy Policy", href: "/privacy" },
@@ -29,6 +30,9 @@ export function Footer() {
           <Link href="/" className="flex items-center gap-2">
             <Brain className="h-8 w-8 text-[#8B9456]" />
             <div className="flex flex-col">
+              <>
+              <p>how will you get the answers</p> 
+              </>
               <span className="text-lg font-bold text-[#8B9456] leading-tight">
                 Best1Quiz
               </span>
