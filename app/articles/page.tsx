@@ -5,17 +5,16 @@ import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { ChevronLeft, ChevronRight, Clock, Calendar, BookOpen, TrendingUp, Award, Zap, ArrowRight, Tag, Eye, FileText, BarChart, Star, User } from "lucide-react"
-import { getPaginatedArticles, getFeaturedArticles } from "@/lib/article-data"
+import { getPaginatedArticles } from "@/lib/article-data"
 
 export default function ArticlesPage() {
   const [currentPage, setCurrentPage] = useState(1)
   const { articles, totalPages } = getPaginatedArticles(currentPage, 9)
-  const featuredArticles = getFeaturedArticles()
 
   return (
     <div className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-gray-50 to-gray-100 py-16 px-4 sm:px-6 lg:px-8">
+      <div className="bg-gradient-to-r from-gray-50 to-gray-100 py-2 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="text-center">
             <div className="mb-6 inline-flex items-center justify-center rounded-full bg-[#8B9456]/10 p-3">
@@ -45,205 +44,104 @@ export default function ArticlesPage() {
         </div>
       </div>
 
-      {/* Featured Articles */}
-      {currentPage === 1 && featuredArticles.length > 0 && (
-        <section className="py-16 lg:py-20 bg-white">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                Featured Articles
-              </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-[#8B9456] to-[#8B9456] mx-auto rounded-full" />
-            </motion.div>
-
-            <div className="grid gap-8 lg:grid-cols-2">
-              {featuredArticles.map((article, index) => (
-                <motion.article
-                  key={article.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                  className="group"
-                >
-                  <Link href={`/articles/${article.slug}`} className="block">
-                    <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 group-hover:border-[#8B9456]">
-                      {/* Featured Badge */}
-                      <div className="absolute top-6 left-6 z-10">
-                        <span className="inline-flex items-center gap-1 px-4 py-2 bg-gradient-to-r from-[#8B9456] to-[#8B9456] text-white text-sm font-semibold rounded-full shadow-lg">
-                          <Star className="h-4 w-4 fill-current" />
-                          Featured
-                        </span>
-                      </div>
-
-                      {/* Image */}
-                      <div className="relative h-64 overflow-hidden">
-                        <Image
-                          src={article.image || "/placeholder.svg"}
-                          alt={article.title}
-                          fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                        
-                        {/* Category on image */}
-                        <div className="absolute bottom-6 left-6">
-                          <span className="inline-block px-3 py-1 bg-white/90 backdrop-blur-sm text-gray-900 text-sm font-semibold rounded-lg">
-                            {article.category}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Content */}
-                      <div className="p-8">
-                        {/* Meta */}
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-4">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="h-4 w-4" />
-                            {article.date}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Clock className="h-4 w-4" />
-                            {article.readTime}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <User className="h-4 w-4" />
-                            {article.author}
-                          </span>
-                        </div>
-
-                        {/* Title */}
-                        <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-4 line-clamp-2 group-hover:text-[#8B9456] transition-colors">
-                          {article.title}
-                        </h3>
-
-                        {/* Excerpt */}
-                        <p className="text-gray-600 leading-relaxed mb-6 line-clamp-3">
-                          {article.excerpt}
-                        </p>
-
-                        {/* Read More */}
-                        <div className="flex items-center text-[#8B9456] font-semibold group-hover:text-[#8B9456] transition-colors">
-                          Read Full Article
-                          <ChevronRight className="h-5 w-5 ml-2 group-hover:translate-x-2 transition-transform" />
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </motion.article>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* Clean Professional Articles Section */}
-      <div className="bg-white py-16">
+      <div className="bg-gradient-to-br from-gray-50 to-gray-100 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          {/* Clean Header */}
-          <motion.div
+          {/* Modern Header */}
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
-          >
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-[#8B9456]/10 rounded-xl mb-4">
-              <FileText className="h-6 w-6 text-[#8B9456]" />
-            </div>
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              {currentPage === 1 ? "Articles" : `Articles - Page ${currentPage}`}
-            </h2>
-            <div className="w-24 h-0.5 bg-[#8B9456] mx-auto rounded-full mb-6" />
-            <p className="text-base text-gray-600 max-w-2xl mx-auto">
-              Expert insights and analysis across technology and business
-            </p>
-            <div className="flex justify-center items-center gap-6 mt-8 text-sm">
-              <div className="flex items-center gap-2 text-gray-500">
-                <BarChart className="h-4 w-4 text-[#8B9456]" />
-                <span>{totalPages * 9} Articles</span>
+          > */}
+            {/* Title Section */}
+            {/* <div className="mb-8">
+              <div className="inline-flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-[#8B9456] to-[#7A8B50] rounded-xl flex items-center justify-center shadow-lg">
+                  <FileText className="h-6 w-6 text-white" />
+                </div>
+                <div className="text-left">
+                  <h2 className="text-3xl font-bold text-gray-900">
+                    {currentPage === 1 ? "Explore Articles" : `Discover Insights - Page ${currentPage}`}
+                  </h2>
+                  <p className="text-gray-600 mt-1">
+                    Expert analysis and comprehensive guides
+                  </p>
+                </div>
               </div>
-              <div className="flex items-center gap-2 text-gray-500">
+            </div> */}
+
+            {/* Stats Bar */}
+            {/* <div className="inline-flex items-center gap-8 px-6 py-3 bg-white rounded-full shadow-sm border border-gray-100">
+              <div className="flex items-center gap-2 text-sm">
                 <div className="w-2 h-2 bg-[#8B9456] rounded-full"></div>
-                <span>Page {currentPage} of {totalPages}</span>
+                <span className="text-gray-700 font-medium">{totalPages * 9} Articles</span>
               </div>
-            </div>
-          </motion.div>
+              <div className="w-px h-4 bg-gray-200"></div>
+              <div className="flex items-center gap-2 text-sm">
+                <BarChart className="h-4 w-4 text-[#8B9456]" />
+                <span className="text-gray-600">Page {currentPage} of {totalPages}</span>
+              </div>
+            </div> */}
+          {/* </motion.div> */}
           
-          {/* Clean Card Grid */}
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {/* Content-Focused Card Grid */}
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {articles.map((article, index) => (
               <motion.article
                 key={article.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group h-full"
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                whileHover={{ y: -8 }}
+                className="group relative"
               >
                 <Link href={`/articles/${article.slug}`} className="block h-full">
-                  <div className="bg-white border border-gray-200 rounded-xl hover:border-[#8B9456] hover:shadow-lg transition-all duration-300 h-full flex flex-col">
-                    {/* Image Section */}
-                    <div className="relative h-48 overflow-hidden rounded-t-xl">
-                      <Image
-                        src={article.image || "/placeholder.svg"}
-                        alt={article.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                      
+                  <div className="relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
+                    {/* Top Accent Line */}
+                    <div className="h-1 bg-gradient-to-r from-[#8B9456] via-[#7A8B50] to-[#8B9456]"></div>
+                    
+                    {/* Card Content */}
+                    <div className="p-6">
                       {/* Category Badge */}
-                      <div className="absolute top-4 left-4">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/90 backdrop-blur-sm text-gray-900 text-xs font-semibold rounded-lg">
-                          <Tag className="h-3 w-3 text-[#8B9456]" />
-                          {article.category}
-                        </div>
+                      <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#8B9456]/10 text-[#8B9456] text-xs font-bold rounded-full border border-[#8B9456]/20 mb-4">
+                        <div className="w-1.5 h-1.5 bg-[#8B9456] rounded-full"></div>
+                        {article.category}
                       </div>
-                      
-                      {/* Reading Time Badge */}
-                      <div className="absolute top-4 right-4">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-black/70 backdrop-blur-sm text-white text-xs font-medium rounded-lg">
-                          <Clock className="h-3 w-3" />
-                          {article.readTime}
-                        </div>
-                      </div>
-                      
-                      {/* Date Badge */}
-                      <div className="absolute bottom-4 left-4">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/90 backdrop-blur-sm text-gray-900 text-xs font-semibold rounded-lg">
-                          <Calendar className="h-3 w-3 text-[#8B9456]" />
-                          {article.date}
-                        </div>
-                      </div>
-                    </div>
 
-                    {/* Content Section */}
-                    <div className="p-6 flex-1 flex flex-col">
                       {/* Title */}
-                      <h3 className="text-lg font-semibold text-gray-900 mb-3 line-clamp-2 group-hover:text-[#8B9456] transition-colors duration-300 leading-tight">
+                      <h3 className="text-xl font-bold text-gray-900 mb-4 line-clamp-2 group-hover:text-[#8B9456] transition-colors duration-300 leading-tight">
                         {article.title}
                       </h3>
 
                       {/* Excerpt */}
-                      <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3 flex-1">
+                      <p className="text-gray-600 leading-relaxed line-clamp-4 text-sm">
                         {article.excerpt}
                       </p>
 
-                      {/* CTA */}
-                      <div className="flex items-center justify-between pt-3 border-t border-gray-100">
-                        <div className="flex items-center gap-2 text-[#8B9456] font-medium text-sm group-hover:gap-3 transition-all duration-300">
-                          <span>Read Article</span>
-                          <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      {/* Meta Information  */}
+                      {/* <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                        <div className="flex items-center gap-4 text-xs text-gray-500">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="h-3 w-3" />
+                            <span>{article.date}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-3 w-3" />
+                            <span>{article.readTime}</span>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-1.5 text-gray-400 group-hover:text-[#8B9456] transition-colors duration-300">
-                          <Eye className="h-4 w-4" />
-                          <span className="text-xs font-medium">View</span>
-                        </div>
-                      </div>
+                        
+                        Read More Button
+                        <button className="flex items-center gap-2 text-[#8B9456] hover:text-[#7A8B50] font-semibold text-sm transition-all duration-300 group/btn">
+                          <span>Read</span>
+                          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+                        </button>
+                      </div> */}
                     </div>
+
+                    {/* Hover Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#8B9456]/3 via-transparent to-[#7A8B50]/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                   </div>
                 </Link>
               </motion.article>

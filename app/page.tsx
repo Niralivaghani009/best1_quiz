@@ -63,15 +63,21 @@ export default function HomePage() {
                 Practice Today, Pass with Confidence
               </p>
               <p className="mt-6 text-gray-600 leading-relaxed">
-                Best1Quiz is your reliable partner for preparing for the U.S.
-                Naturalization Civics Test. Our platform offers comprehensive
-                practice materials based on the{" "}
+                Welcome to Best Quiz, your reliable partner for mastering the U.S. Naturalization Civics Test. Whether you're beginning your preparation or reviewing before your citizenship interview, our platform is here to support you every step of the way. Explore engaging quizzes, easy-to-use flashcards, and smart study tools—all designed around the{" "}
                 <Link href="/quiz" className="text-blue-500 hover:underline">
                   official USCIS 100 civics questions
                 </Link>
-                , helping you prepare effectively and confidently for your
-                citizenship interview.
+                {" "}to help you prepare with confidence.
               </p>
+              <p className="mt-6 text-gray-600 leading-relaxed">
+                Discover endless fun and challenge your intellect with Best1Quiz, the ultimate destination for quiz lovers! Dive into a world of engaging trivia that tests your general knowledge, logic, pop culture facts, and more. Best1Quiz brings you a variety of smart, entertaining quizzes that are perfect for everyday brain workouts — whether you're relaxing at home or competing with friends.
+              </p>
+              <p className="mt-6 text-gray-600 leading-relaxed">
+                With Best1Quiz, there's no need to download anything or create an account — simply jump in and play instantly. From quick-fire questions to deeper trivia challenges, the site offers something for everyone. Boost your knowledge, sharpen your memory, and have a great time exploring fun facts.
+              </p>
+              <p className="mt-6 text-gray-600 leading-relaxed">Get ready to challenge yourself and discover how much you really know — all for free and right in your browser! 🧠✨
+              </p>
+
               <div className="mt-8">
                 <Link
                   href="/quiz"

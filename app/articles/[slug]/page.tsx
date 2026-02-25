@@ -27,61 +27,43 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
 
   return (
     <div className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
-      {/* Hero Section - Fixed Layout */}
-      <section className="relative h-[400px] sm:h-[500px] lg:h-[600px] bg-gray-100">
-        <Image
-          src={article.image || "/placeholder.svg"}
-          alt={article.title}
-          fill
-          className="object-cover opacity-90"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
-        
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center w-full">
-            <Link
-              href="/articles"
-              className="inline-flex items-center gap-2 text-white/90 hover:text-white mb-4 transition-colors text-sm font-medium relative z-50"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Back to Articles
-            </Link>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 lg:p-12"
-            >
-                
-              <div className="flex flex-wrap justify-center items-center gap-3 mb-6">
-                <span className="inline-block px-4 py-2 bg-[#8B9456] text-white text-sm font-semibold rounded-full">
-                  {article.category}
-                </span>
-                {article.featured && (
-                  <span className="inline-flex items-center gap-1 px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-sm font-semibold rounded-full">
-                    <Bookmark className="h-4 w-4 fill-current" />
-                    Featured
-                  </span>
-                )}
+      {/* Hero Section - Text Only */}
+      <section className="relative bg-gradient-to-br from-[#8B9456] via-[#7A8B50] to-[#8B9456] py-20 lg:py-24">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
+          <Link
+            href="/articles"
+            className="inline-flex items-center gap-2 text-white/90 hover:text-white mb-6 transition-colors text-sm font-medium"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Articles
+          </Link>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+          >   
+            <div className="flex flex-wrap justify-center items-center gap-3 mb-6">
+              <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm text-white text-sm font-semibold rounded-full border border-white/30">
+                {article.category}
+              </span>
+            </div>
+            
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-8 text-balance leading-tight">
+              {article.title}
+            </h1>
+            
+            <div className="flex items-center justify-center gap-8 text-sm text-white/80">
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4" />
+                {article.date}
               </div>
-              
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 text-balance leading-tight">
-                {article.title}
-              </h1>
-              
-              <div className="flex items-center justify-center gap-6 text-sm text-gray-200">
-                <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
-                  {article.date}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4" />
-                  {article.readTime}
-                </div>
+              <div className="flex items-center gap-2">
+                <Clock className="h-4 w-4" />
+                {article.readTime}
               </div>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -117,8 +99,8 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
             </div>
 
             {/* Article Actions */}
-            <div className="mt-16 pt-8 border-t-2 border-gray-200">
-              <div className="flex flex-wrap items-center justify-between gap-6">
+            <div className="mt-8 pt-8 border-t-2 border-gray-200">
+              {/* <div className="flex flex-wrap items-center justify-between gap-6">
                 <div className="flex items-center gap-4">
                   <button className="flex items-center gap-3 px-6 py-3 bg-[#8B9456] text-white rounded-xl hover:bg-[#8B9456]/90 transition-colors shadow-lg">
                     <Heart className="h-5 w-5" />
@@ -136,67 +118,88 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
                   <span className="text-gray-400">/</span>
                   <button className="text-red-600 hover:text-red-700 font-bold text-xl">No</button>
                 </div>
-              </div>
+              </div> */}
+              <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              // className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6"
+            >
+              {/* <h3 className="font-bold text-gray-900 mb-6 flex items-center gap-2 text-lg">
+                <Share2 className="h-5 w-5 text-[#8B9456]" />
+                Share Article
+              </h3> */}
+              <button
+                onClick={async () => {
+                  if (navigator.share) {
+                    try {
+                      await navigator.share({
+                        title: article.title,
+                        text: article.excerpt,
+                        url: shareUrl
+                      });
+                    } catch (error) {
+                      // Fallback to copying link if user cancels or share fails
+                      await navigator.clipboard.writeText(shareUrl);
+                      // You could add a toast notification here
+                    }
+                  } else {
+                    // Fallback for browsers that don't support Web Share API
+                    await navigator.clipboard.writeText(shareUrl);
+                    // You could add a toast notification here
+                  }
+                }}
+                className="w-auto flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-[#8B9456] to-[#7A8B50] text-white rounded-xl hover:from-[#7A8B50] hover:to-[#8B9456] transition-all duration-300 shadow-lg hover:shadow-xl font-semibold"
+              >
+                <Share2 className="h-5 w-5" />
+                Share Article
+              </button>
+            </motion.div>
             </div>
           </motion.article>
 
           {/* Sidebar - Below Content */}
           <div className="mt-16 grid gap-8 lg:grid-cols-3">
             {/* Share Section */}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6"
+              // className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6"
             >
               <h3 className="font-bold text-gray-900 mb-6 flex items-center gap-2 text-lg">
                 <Share2 className="h-5 w-5 text-[#8B9456]" />
                 Share Article
               </h3>
-              <div className="grid grid-cols-2 gap-3">
-                <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 p-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors"
-                  aria-label="Share on Facebook"
-                >
-                  <Facebook className="h-5 w-5" />
-                  <span className="text-sm font-medium">Facebook</span>
-                </a>
-                <a
-                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(article.title)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 p-3 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-colors"
-                  aria-label="Share on Twitter"
-                >
-                  <Twitter className="h-5 w-5" />
-                  <span className="text-sm font-medium">Twitter</span>
-                </a>
-                <a
-                  href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(article.title)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 p-3 bg-blue-700 text-white rounded-xl hover:bg-blue-800 transition-colors"
-                  aria-label="Share on LinkedIn"
-                >
-                  <Linkedin className="h-5 w-5" />
-                  <span className="text-sm font-medium">LinkedIn</span>
-                </a>
-                <button
-                  onClick={() => navigator.clipboard.writeText(shareUrl)}
-                  className="flex items-center justify-center gap-2 p-3 bg-gray-600 text-white rounded-xl hover:bg-gray-700 transition-colors"
-                  aria-label="Copy link"
-                >
-                  <Share2 className="h-5 w-5" />
-                  <span className="text-sm font-medium">Copy</span>
-                </button>
-              </div>
-            </motion.div>
+              <button
+                onClick={async () => {
+                  if (navigator.share) {
+                    try {
+                      await navigator.share({
+                        title: article.title,
+                        text: article.excerpt,
+                        url: shareUrl
+                      });
+                    } catch (error) {
+                      // Fallback to copying link if user cancels or share fails
+                      await navigator.clipboard.writeText(shareUrl);
+                      // You could add a toast notification here
+                    }
+                  } else {
+                    // Fallback for browsers that don't support Web Share API
+                    await navigator.clipboard.writeText(shareUrl);
+                    // You could add a toast notification here
+                  }
+                }}
+                className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-[#8B9456] to-[#7A8B50] text-white rounded-xl hover:from-[#7A8B50] hover:to-[#8B9456] transition-all duration-300 shadow-lg hover:shadow-xl font-semibold"
+              >
+                <Share2 className="h-5 w-5" />
+                Share Article
+              </button>
+            </motion.div> */}
 
             {/* Newsletter CTA */}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -207,10 +210,10 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
               <button className="w-full px-6 py-3 bg-white text-[#8B9456] rounded-xl hover:bg-gray-100 transition-colors font-bold">
                 Subscribe Now
               </button>
-            </motion.div>
+            </motion.div> */}
 
             {/* Article Stats */}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
@@ -238,7 +241,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
                   <span className="font-bold text-gray-900">1,234</span>
                 </div>
               </div>
-            </motion.div>
+            </motion.div> */}
           </div>
         </div>
       </section>
@@ -272,34 +275,31 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
                   className="group"
                 >
                   <Link href={`/articles/${relatedArticle.slug}`} className="block">
-                    <div className="bg-gray-50 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group-hover:border-[#8B9456] group-hover:-translate-y-1">
-                      <div className="relative h-48 overflow-hidden">
-                        <Image
-                          src={relatedArticle.image || "/placeholder.svg"}
-                          alt={relatedArticle.title}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        <div className="absolute top-4 left-4">
-                          <span className="inline-flex items-center px-4 py-2 bg-[#8B9456] text-white text-sm font-semibold rounded-full">
-                            {relatedArticle.category}
-                          </span>
-                        </div>
-                      </div>
+                    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group-hover:border-[#8B9456] group-hover:-translate-y-1">
                       <div className="p-6">
-                        <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
-                          <Calendar className="h-4 w-4" />
-                          {relatedArticle.date}
+                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#8B9456]/10 text-[#8B9456] text-xs font-bold rounded-full border border-[#8B9456]/20 mb-4">
+                          <div className="w-1.5 h-1.5 bg-[#8B9456] rounded-full"></div>
+                          {relatedArticle.category}
                         </div>
-                        <h3 className="font-semibold text-gray-900 group-hover:text-[#8B9456] transition-colors line-clamp-2">
+                        
+                        <h3 className="font-bold text-gray-900 group-hover:text-[#8B9456] transition-colors line-clamp-2 text-lg mb-3">
                           {relatedArticle.title}
                         </h3>
+                        
                         <p className="text-gray-600 text-sm line-clamp-3 mb-4 leading-relaxed">
                           {relatedArticle.excerpt}
                         </p>
-                        <div className="flex items-center text-[#8B9456] font-semibold text-sm group-hover:text-[#8B9456]/80 transition-colors">
-                          Read Article
-                          <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                        
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2 text-xs text-gray-500">
+                            <Calendar className="h-3 w-3" />
+                            {relatedArticle.date}
+                          </div>
+                          
+                          <div className="flex items-center text-[#8B9456] font-semibold text-sm group-hover:text-[#8B9456]/80 transition-colors">
+                            Read
+                            <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                          </div>
                         </div>
                       </div>
                     </div>
