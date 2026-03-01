@@ -67,7 +67,7 @@ export default function HomePage() {
                 <Link href="/quiz" className="text-blue-500 hover:underline">
                   official USCIS 100 civics questions
                 </Link>
-                {" "}to help you prepare with confidence.
+          {" "}to help you prepare with confidence.
               </p>
               <p className="mt-6 text-gray-600 leading-relaxed">
                 Discover endless fun and challenge your intellect with Best1Quiz, the ultimate destination for quiz lovers! Dive into a world of engaging trivia that tests your general knowledge, logic, pop culture facts, and more. Best1Quiz brings you a variety of smart, entertaining quizzes that are perfect for everyday brain workouts — whether you're relaxing at home or competing with friends.

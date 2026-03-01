@@ -95,7 +95,30 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
               prose-thead:bg-gray-50 prose-th:text-gray-900 prose-th:font-bold prose-th:p-4 prose-th:text-lg
               prose-td:p-4 prose-td:border-t prose-td:border-gray-200 prose-td:text-xl prose-td:text-gray-700
             ">
-              <ReactMarkdown>{article.content}</ReactMarkdown>
+              <ReactMarkdown 
+                components={{
+                  h1: ({children}) => <h1 className="text-2xl md:text-3xl font-bold text-center mb-4 text-balance leading-tight text-gray-900">{children}</h1>,
+                  h2: ({children}) => <h2 className="text-xl md:text-2xl font-bold mb-3 mt-6 text-gray-900 border-l-4 border-[#8B9456] pl-4 bg-[#8B9456]/5 py-2 rounded-r-lg">{children}</h2>,
+                  h3: ({children}) => <h3 className="text-lg md:text-xl font-semibold text-[#8B9456] mt-4 mb-3">{children}</h3>,
+                  h4: ({children}) => <h4 className="text-base md:text-lg font-semibold text-gray-800 mt-3 mb-2">{children}</h4>,
+                  p: ({children}) => <p className="text-gray-700 leading-relaxed text-sm md:text-base mb-4 max-w-none">{children}</p>,
+                  ul: ({children}) => <ul className="my-4 space-y-1 list-disc list-inside ml-4">{children}</ul>,
+                  ol: ({children}) => <ol className="my-4 space-y-1 list-decimal list-inside ml-4">{children}</ol>,
+                  li: ({children}) => <li className="text-gray-700 leading-relaxed text-sm md:text-base">{children}</li>,
+                  blockquote: ({children}) => <blockquote className="border-l-4 border-[#8B9456] bg-[#8B9456]/10 p-4 rounded-xl not-italic my-6 text-sm md:text-base text-gray-700 italic">{children}</blockquote>,
+                  hr: () => <hr className="border-gray-300 my-6 border-t" />,
+                  table: ({children}) => <table className="border border-gray-200 rounded-lg overflow-hidden my-6 w-full">{children}</table>,
+                  thead: ({children}) => <thead className="bg-gray-50 border-b border-gray-200">{children}</thead>,
+                  th: ({children}) => <th className="text-gray-900 font-bold p-3 text-sm md:text-base text-left border-b border-gray-200">{children}</th>,
+                  td: ({children}) => <td className="p-3 border-t border-gray-200 text-sm md:text-base text-gray-700">{children}</td>,
+                  tr: ({children}) => <tr className="hover:bg-gray-50">{children}</tr>,
+                  strong: ({children}) => <strong className="text-gray-900 font-bold text-sm md:text-base">{children}</strong>,
+                  em: ({children}) => <em className="italic text-gray-700">{children}</em>,
+                  code: ({children}) => <code className="bg-gray-100 text-[#8B9456] px-2 py-1 rounded font-mono text-xs">{children}</code>
+                }}
+              >
+                {article.content}
+              </ReactMarkdown>
             </div>
 
             {/* Article Actions */}
