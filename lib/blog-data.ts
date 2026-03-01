@@ -303,7 +303,7 @@ Thousands of people pass the citizenship test every day. With proper preparation
 
 Start your preparation journey today with our free practice quizzes!
     `,
-    image: "https://images.unsplash.com/photo-1569025743873-ea3a9ber55ae?w=800&h=500&fit=crop",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=500&fit=crop",
     author: "Best1Quiz Team",
     date: "January 15, 2026",
     readTime: "8 min read",
@@ -365,7 +365,7 @@ Understanding how the government works isn't just about passing a test—it's ab
 
 After reading this, test your understanding with our American Government quiz!
     `,
-    image: "https://images.unsplash.com/photo-1569025743873-ea3a9ber55ae?w=800&h=500&fit=crop",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=500&fit=crop",
     author: "Best1Quiz Team",
     date: "January 12, 2026",
     readTime: "6 min read",
@@ -607,7 +607,7 @@ Beyond legal requirements, good citizenship involves:
 
 Citizenship is both a privilege and a responsibility. Embrace both.
     `,
-    image: "https://images.unsplash.com/photo-1532375810709-75b1da00537c?w=800&h=500&fit=crop",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=500&fit=crop",
     author: "Best1Quiz Team",
     date: "January 5, 2026",
     readTime: "6 min read",
@@ -694,7 +694,7 @@ The Great Seal of the United States appears on official documents and the one-do
 
 These symbols represent ideals that all Americans share. Learning their meanings helps connect you to the broader American story.
     `,
-    image: "https://images.unsplash.com/photo-1569025743873-ea3a9ber55ae?w=800&h=500&fit=crop",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=500&fit=crop",
     author: "Best1Quiz Team",
     date: "January 3, 2026",
     readTime: "5 min read",

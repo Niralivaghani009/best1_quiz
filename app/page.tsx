@@ -8,7 +8,7 @@ import { ArrowRight } from "lucide-react"
 const categories = [
   {
     title: "American Government",
-    image: "https://images.unsplash.com/photo-1569025743873-ea3a9ber55ae?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop",
     href: "/quiz/american-government",
   },
   {
@@ -18,7 +18,7 @@ const categories = [
   },
   {
     title: "Integrated Civics",
-    image: "https://images.unsplash.com/photo-1532375810709-75b1da00537c?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=600&h=400&fit=crop",
     href: "/quiz/integrated-civics",
   },
   {
