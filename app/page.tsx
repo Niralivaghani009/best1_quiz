@@ -21,11 +21,11 @@ const categories = [
     image: "https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=600&h=400&fit=crop",
     href: "/quiz/integrated-civics",
   },
-  {
-    title: "Blog",
-    image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&h=400&fit=crop",
-    href: "/blog",
-  },
+  // {
+  //   title: "Blog",
+  //   image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&h=400&fit=crop",
+  //   href: "/blog",
+  // },
 ]
 
 const fadeInUp = {
@@ -160,7 +160,8 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {/* <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"> */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((category, index) => (
               <motion.div
                 key={category.title}
