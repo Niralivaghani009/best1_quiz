@@ -3,9 +3,8 @@
 import { useState, useEffect, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
-import Image from "next/image"
 import { motion } from "framer-motion"
-import { Search, Calendar, Clock, ArrowRight, Tag } from "lucide-react"
+import { Search, ArrowRight } from "lucide-react"
 import { getAllArticles } from "@/lib/article-data"
 
 function SearchResults() {
@@ -85,61 +84,42 @@ function SearchResults() {
         </p>
       </div>
 
-      <div className="grid gap-6">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {searchResults.map((article, index) => (
           <motion.article
             key={article.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="bg-white border border-gray-200 rounded-xl hover:border-[#8B9456] hover:shadow-lg transition-all duration-300"
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
+            whileHover={{ y: -8 }}
+            className="group relative"
           >
-            <Link href={`/articles/${article.slug}`} className="block p-6">
-              <div className="flex flex-col lg:flex-row gap-6">
-                {/* Image */}
-                <div className="lg:w-48 h-48 lg:h-auto relative rounded-lg overflow-hidden flex-shrink-0">
-                  <Image
-                    src={article.image || "/placeholder.svg"}
-                    alt={article.title}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-
-                {/* Content */}
-                <div className="flex-1 flex flex-col">
-                  {/* Category and Date */}
-                  <div className="flex flex-wrap items-center gap-4 mb-3">
-                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-[#8B9456]/10 text-[#8B9456] text-xs font-semibold rounded-lg">
-                      <Tag className="h-3 w-3" />
-                      {article.category}
-                    </div>
-                    <div className="flex items-center gap-1 text-sm text-gray-500">
-                      <Calendar className="h-4 w-4" />
-                      {article.date}
-                    </div>
-                    <div className="flex items-center gap-1 text-sm text-gray-500">
-                      <Clock className="h-4 w-4" />
-                      {article.readTime}
-                    </div>
+            <Link href={`/articles/${article.slug}`} className="block h-full">
+              <div className="relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
+                {/* Top Accent Line */}
+                <div className="h-1 bg-gradient-to-r from-[#8B9456] via-[#7A8B50] to-[#8B9456]"></div>
+                
+                {/* Card Content */}
+                <div className="p-6">
+                  {/* Category Badge */}
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#8B9456]/10 text-[#8B9456] text-xs font-bold rounded-full border border-[#8B9456]/20 mb-4">
+                    <div className="w-1.5 h-1.5 bg-[#8B9456] rounded-full"></div>
+                    {article.category}
                   </div>
 
                   {/* Title */}
-                  <h2 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2 hover:text-[#8B9456] transition-colors">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4 line-clamp-2 group-hover:text-[#8B9456] transition-colors duration-300 leading-tight">
                     {article.title}
-                  </h2>
+                  </h3>
 
                   {/* Excerpt */}
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3 flex-1">
+                  <p className="text-gray-600 leading-relaxed line-clamp-4 text-sm">
                     {article.excerpt}
                   </p>
-
-                  {/* Read More */}
-                  <div className="flex items-center text-[#8B9456] font-medium text-sm hover:text-[#7A8450] transition-colors">
-                    Read Article
-                    <ArrowRight className="h-4 w-4 ml-1" />
-                  </div>
                 </div>
+
+                {/* Hover Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#8B9456]/3 via-transparent to-[#7A8B50]/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
               </div>
             </Link>
           </motion.article>

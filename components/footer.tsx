@@ -4,7 +4,7 @@ import { Twitter, Linkedin, Instagram, Facebook, Youtube, Brain } from "lucide-r
 const footerLinks = [
   { name: "Home", href: "/" },
   { name: "Quiz", href: "/quiz" },
-  { name: "Blog", href: "/blog" },
+  // { name: "Blog", href: "/blog" },
   { name: "Articles", href: "/articles" },
   { name: "About Us", href: "/about" },
   { name: "Contact Us", href: "/contact" },
