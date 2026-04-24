@@ -42,7 +42,7 @@ function SearchResults() {
         <h2 className="text-2xl font-semibold text-gray-900 mb-2">No search query</h2>
         <p className="text-gray-600">Please enter a search term to find results.</p>
       </div>
-    )
+    ) 
   }
 
   if (isSearching) {

@@ -18,7 +18,7 @@ const socialLinks = [
   { name: "LinkedIn", icon: Linkedin, href: "#" },
   { name: "Instagram", icon: Instagram, href: "#" },
   { name: "Facebook", icon: Facebook, href: "#" },
-  { name: "YouTube", icon: Youtube, href: "#" },
+  { name:  "YouTube", icon: Youtube, href: "#" },
 ]
 
 export function Footer() {
@@ -39,9 +39,10 @@ export function Footer() {
               <span className="text-[10px] text-gray-400 leading-tight">
                 Quiz Game Start
               </span>
-            </div>
+              </div>
           </Link>
         </div>
+      
 
         {/* Navigation Links */}
         <nav className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-8">
